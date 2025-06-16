@@ -19,7 +19,7 @@ const PORT = 5000;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect('mongodb+srv://todoDB:bnadirWmlyyLIcle@cluster0.riywk8u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+            yield mongoose_1.default.connect('mongodb+srv://todoDB:bnadirWmlyyLIcle@cluster0.riywk8u.mongodb.net/advanced-note?retryWrites=true&w=majority&appName=Cluster0');
             console.log('Connected to MongoDB using Mongoose!');
             server = app_1.default.listen(PORT, () => {
                 console.log(`App is listen port on ${PORT}`);

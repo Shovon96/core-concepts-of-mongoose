@@ -15,21 +15,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = require("mongoose");
 const app = (0, express_1.default)();
+app.use(express_1.default.json());
 const noteSchema = new mongoose_1.Schema({
-    title: String,
-    content: String
+    title: { type: String, require: true, trim: true },
+    content: { type: String, default: '' },
+    category: { type: String, enum: ['Personal', 'Work', 'Study', 'Other'], default: 'Personal' },
+    pinned: { type: Boolean, default: false }
 });
 const Note = (0, mongoose_1.model)("Note", noteSchema);
-app.post('/create-note', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const myNote = new Note({
-        title: 'Mongoose',
-        content: 'I am learning mongoose'
-    });
-    yield myNote.save();
+// Post or Create a single note
+app.post('/notes/create-note', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const body = req.body;
+    // Approch-1 of creating a data.
+    // const myNote = new Note({
+    //     title: 'Mongoose', 
+    //     content: 'I am learnig deep dive the Mongoose',
+    //     category: 'Study',
+    // })
+    // await myNote.save();
+    // Approch-1 of creating a data.
+    const note = yield Note.create(body);
     res.status(201).json({
         success: true,
         message: 'Note created successfully',
-        note: myNote
+        note
+    });
+}));
+// Get all the notes 
+app.get('/notes', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const notes = yield Note.find();
+    res.status(201).json({
+        success: true,
+        message: "All Note Fineded",
+        notes
     });
 }));
 app.get('/', (req, res) => {
