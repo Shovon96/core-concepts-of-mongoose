@@ -50,6 +50,36 @@ app.get('/notes', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         notes
     });
 }));
+// Find one specifice note using by ID
+app.get('/note/:noteId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const noteId = req.params.noteId;
+    const note = yield Note.findById(noteId);
+    res.status(201).json({
+        success: true,
+        message: "Find Specifice Note",
+        note
+    });
+}));
+// Update one specifice note using by ID
+app.patch('/note/:noteId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const noteId = req.params.noteId;
+    const updatedBody = req.body;
+    const updatedNote = yield Note.findByIdAndUpdate(noteId, updatedBody, { new: true });
+    res.status(201).json({
+        success: true,
+        message: "Note Updated Successfully",
+        updatedNote
+    });
+}));
+// Update one specifice note using by ID
+app.delete('/note/:noteId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const noteId = req.params.noteId;
+    const deletedNote = yield Note.findByIdAndDelete(noteId);
+    res.status(201).json({
+        success: true,
+        message: "Note Deleted Successfully",
+    });
+}));
 app.get('/', (req, res) => {
     res.send('Welcome to Note Server');
 });

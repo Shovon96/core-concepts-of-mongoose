@@ -50,6 +50,43 @@ app.get('/notes', async (req: Request, res: Response) => {
     })
 });
 
+// Find one specifice note using by ID
+app.get('/note/:noteId', async (req: Request, res: Response) => {
+    const noteId = req.params.noteId;
+    const note = await Note.findById(noteId);
+
+    res.status(201).json({
+        success: true,
+        message: "Find Specifice Note",
+        note
+    })
+});
+
+// Update one specifice note using by ID
+app.patch('/note/:noteId', async (req: Request, res: Response) => {
+    const noteId = req.params.noteId;
+    const updatedBody = req.body;
+    const updatedNote = await Note.findByIdAndUpdate(noteId, updatedBody, { new: true });
+
+    res.status(201).json({
+        success: true,
+        message: "Note Updated Successfully",
+        updatedNote
+    })
+});
+
+// Update one specifice note using by ID
+app.delete('/note/:noteId', async (req: Request, res: Response) => {
+    const noteId = req.params.noteId;
+    const deletedNote = await Note.findByIdAndDelete(noteId);
+
+    res.status(201).json({
+        success: true,
+        message: "Note Deleted Successfully",
+    })
+});
+
+
 app.get('/', (req: Request, res: Response) => {
     res.send('Welcome to Note Server');
 });
