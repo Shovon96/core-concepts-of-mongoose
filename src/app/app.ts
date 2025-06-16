@@ -4,16 +4,19 @@ import { model, Schema } from 'mongoose';
 const app: Application = express();
 
 const noteSchema = new Schema({
-    title: String,
-    constent: String
+    title: { type: String, require: true, trim: true },
+    content: { type: String, default: '' },
+    category: { type: String, enum: ['Personal', 'Work', 'Study', 'Other'], default: 'Personal' },
+    pinned: { type: Boolean, default: false }
 });
 
 const Note = model("Note", noteSchema);
 
 app.post('/create-note', async (req: Request, res: Response) => {
     const myNote = new Note({
-        title: 'Mongoose',
-        constent: 'I am learning mongoose'
+        title: 'Mongoose', 
+        content: 'I am learnig deep dive the Mongoose',
+        category: 'Study',
     })
 
     await myNote.save();
