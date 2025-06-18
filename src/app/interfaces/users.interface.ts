@@ -1,8 +1,9 @@
 export interface IUsers {
     firstName: String,
     lastName: String,
+    age: Number,
     email: String,
     number: Number,
     password: String,
-    role: 'user' | 'admin'
+    role: 'USER' | 'ADMIN' | 'SUPERADMIN'
 }
