@@ -1,3 +1,10 @@
+
+export interface IAddress {
+    city: String,
+    zipCode: Number,
+    country: String
+}
+
 export interface IUsers {
     firstName: String,
     lastName: String,
@@ -5,5 +12,6 @@ export interface IUsers {
     email: String,
     number: Number,
     password: String,
-    role: 'USER' | 'ADMIN' | 'SUPERADMIN'
+    role: 'USER' | 'ADMIN' | 'SUPERADMIN',
+    address: IAddress
 }

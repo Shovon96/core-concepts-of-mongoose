@@ -5,6 +5,13 @@ import { z } from 'zod';
 export const usersRouter = express.Router()
 
 // Create a Zod leayar for type identification:
+
+const addressZodSchema = z.object({
+    city: z.string(),
+    zipCode: z.number(),
+    country: z.string()
+})
+
 const userZodSchema = z.object({
     firstName: z.string(),
     lastName: z.string(),
@@ -12,7 +19,8 @@ const userZodSchema = z.object({
     email: z.string(),
     number: z.number(),
     password: z.string(),
-    role: z.string().optional()
+    role: z.string().optional(),
+    address: addressZodSchema
 })
 
 
