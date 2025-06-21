@@ -1,18 +1,41 @@
 import express, { Request, Response } from 'express';
 import { User } from '../models/users.model';
+import { z } from 'zod';
 
 export const usersRouter = express.Router()
 
+// Create a Zod leayar for type identification:
+const userZodSchema = z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    age: z.number(),
+    email: z.string(),
+    number: z.number(),
+    password: z.string(),
+    role: z.string().optional()
+})
+
+
 // Post or Create a single User
 usersRouter.post('/create-user', async (req: Request, res: Response) => {
-    const body = req.body;
-    const user = await User.create(body)
 
-    res.status(201).json({
-        success: true,
-        message: 'User created successfully',
-        user
-    })
+    try {
+        const body = userZodSchema.parse(req.body);
+        const user = await User.create(body)
+
+        res.status(201).json({
+            success: true,
+            message: 'User created successfully',
+            user
+        })
+    } catch (error: any) {
+        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: error.message,
+            error
+        })
+    }
 
 });
 
