@@ -1,6 +1,9 @@
+import { Types } from "mongoose";
+
 export interface INote {
     title: String,
     content: String,
     category: 'Personal' | 'Work' | 'Study' | 'Other',
-    pinned: Boolean
+    pinned: Boolean,
+    user: Types.ObjectId
 }

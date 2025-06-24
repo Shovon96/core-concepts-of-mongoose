@@ -1,4 +1,4 @@
-import { model, Schema, version } from "mongoose";
+import { model, Schema } from "mongoose";
 import { INote } from "../interfaces/note.interface";
 
 const noteSchema = new Schema<INote>({
@@ -6,8 +6,8 @@ const noteSchema = new Schema<INote>({
     title: { type: String, require: true, trim: true },
     content: { type: String, default: '' },
     category: { type: String, enum: ['Personal', 'Work', 'Study', 'Other'], default: 'Personal' },
-    pinned: { type: Boolean, default: false }
-
+    pinned: { type: Boolean, default: false },
+    user: {type: Schema.ObjectId, ref: "User", require: true}
 },
     {
         versionKey: false
